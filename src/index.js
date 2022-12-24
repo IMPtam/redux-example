@@ -9,19 +9,24 @@ const App = (params) => {
   const [state, setState] = useState(store.getState());
 
   useEffect(() => {
-    store.subscibe(() => {
+    store.subscribe(() => {
       setState(store.getState());
     });
   }, []);
 
   const completeTask = (taskId) => {
-    store.dispach(actions.taskCompleted(taskId));
+    store.dispatch(actions.taskCompleted(taskId));
     // console.log(store.getState());
   };
 
   const changeTitle = (taskId) => {
-    store.dispach(actions.titleChanged(taskId));
+    store.dispatch(actions.titleChanged(taskId));
   };
+
+  const taskDelete = (taskId) => {
+    store.dispatch(actions.taskDeleted(taskId));
+  };
+
   return (
     <>
       <h1>App</h1>
@@ -38,6 +43,13 @@ const App = (params) => {
               }}
             >
               Change Title
+            </button>
+            <button
+              onClick={() => {
+                taskDelete(el.id);
+              }}
+            >
+              Удалить
             </button>
             <hr />
           </li>
